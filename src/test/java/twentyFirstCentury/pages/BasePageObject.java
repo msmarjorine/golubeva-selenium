@@ -85,7 +85,7 @@ public class BasePageObject {
     }
 
     /** Wait for specific ExpectedCondition for the given Duration*/
-    private void waitFor(ExpectedCondition<WebElement> condition, Duration timeOut){
+    protected void waitFor(ExpectedCondition<WebElement> condition, Duration timeOut){
         timeOut = timeOut != null ? timeOut : Duration.ofSeconds(30);
         WebDriverWait wait = new WebDriverWait(driver, timeOut);
         wait.until(condition);
@@ -107,6 +107,7 @@ public class BasePageObject {
             attempts++;
         }
     }
+
 
     //Wait for alert to display and then switch to it
     protected Alert switchToAlert(){
