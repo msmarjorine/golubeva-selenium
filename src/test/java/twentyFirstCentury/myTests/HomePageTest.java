@@ -12,6 +12,7 @@ public class HomePageTest extends TestUtilities {
 
     private String expectedHPTitle = "Онлайн-гипермаркет 21vek.by";
     private int expectedResponseCode = 200;
+    private String expectedDenyCookiesTitle = "Отказ от обработки cookie";
 
 
     @Test (priority = 1)
@@ -33,7 +34,7 @@ public class HomePageTest extends TestUtilities {
     }
 
     @Test (priority = 3)
-    public void cookieModalTest(){
+    public void cookieModalAcceptTest(){
         HomePage homePage = new HomePage(driver, log);
         homePage.openHomepage();
 
@@ -43,6 +44,16 @@ public class HomePageTest extends TestUtilities {
 
         Assert.assertTrue(homePage.isCookieModalHidden(), "The cookie modal is still displayed");
 
+    }
+
+    @Test (priority = 4)
+    public void cookieModalDenyTest(){
+        HomePage homePage = new HomePage(driver, log);
+        homePage.openHomepage();
+
+        Assert.assertEquals(homePage.denyCookies(), expectedDenyCookiesTitle, "The title of the modal is not as expected");
+
+        homePage.denyCookiesConfirm();
 
     }
 

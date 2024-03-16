@@ -4,7 +4,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,6 +20,9 @@ public class HomePage extends BasePageObject{
 
     private By cookieModal = By.id("modal-cookie");
     private By acceptCookiesBtn = By.cssSelector("#modal-cookie .Button-module__blue-primary");
+    private By denyCookiesBtn = By.xpath("//button[@aria-label='Отклонить']");
+    private By denyModalTitle = By.cssSelector("div[role='presentation'] h5");
+    private By denyCookiesConfirmBtn = By.xpath("//button[@class='Button-module__button Button-module__gray-secondary']");
 
 
     //Open 21vek.by Homepage
@@ -36,7 +38,6 @@ public class HomePage extends BasePageObject{
         return homeResponseCode;
     }
 
-    //Verify if cookie modal is displayed on the page
     public boolean isCookieModalDisplayed(){
         log.info("Verifying that the cookie modal is displayed");
         return find(cookieModal).isDisplayed();
@@ -54,6 +55,22 @@ public class HomePage extends BasePageObject{
         log.info("Verifying that the cookie modal is hidden");
         List<WebElement> cookieModals = findAll(cookieModal);
         return cookieModals.isEmpty();
+    }
+
+    //Deny cookies
+    public String denyCookies(){
+        log.info("Clicking Deny button on the cookie modal");
+        click(denyCookiesBtn);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(denyModalTitle));
+        return find(denyModalTitle).getText();
+    }
+
+    public void denyCookiesConfirm(){
+        log.info("Clicking Deny button on the second cookie modal");
+        click(denyCookiesConfirmBtn);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.stalenessOf(find(denyCookiesConfirmBtn)));
     }
 
 
