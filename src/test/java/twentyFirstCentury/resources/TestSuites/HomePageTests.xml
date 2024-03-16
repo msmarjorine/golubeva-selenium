@@ -1,7 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="CheckboxesTestSuite" verbose="1">
-    <test name="CheckboxesTests">
+<suite name="HomePageTestSuite" verbose="1">
+    
+
+    <test name="HomePageTests">
         <classes>
             <class name="twentyFirstCentury.myTests.HomePageTest"/>
         </classes>

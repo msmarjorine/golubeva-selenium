@@ -42,7 +42,7 @@ public class TestListener implements ITestListener {
     public void onStart(ITestContext context){
         this.testName = context.getCurrentXmlTest().getName();
         this.log = LogManager.getLogger(testName);
-        log.info("[Test " + testName + "started]");
+        log.info("[Test " + testName + " started]");
     }
 
     @Override

@@ -11,6 +11,7 @@ public class HomePage extends BasePageObject{
 
     private String homePageUrl = "https://www.21vek.by/";
 
+
     //Open 21vek.by Homepage
     public void openHomepage(){
         log.info("Opening page: " + homePageUrl);
