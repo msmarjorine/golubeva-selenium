@@ -23,6 +23,12 @@ public class HomePage extends BasePageObject{
     private By denyCookiesBtn = By.xpath("//button[@aria-label='Отклонить']");
     private By denyModalTitle = By.cssSelector("div[role='presentation'] h5");
     private By denyCookiesConfirmBtn = By.xpath("//button[@class='Button-module__button Button-module__gray-secondary']");
+    private By accountMenu = By.className("userToolsText");
+    private By accountBtn = By.cssSelector("#userToolsDropDown button.Button-module__blue-primary");
+    private By emailInput = By.id("login-email");
+    private By passwordInput = By.id("login-password");
+    private By signInBtn = By.cssSelector("button[data-testid='loginSubmit']");
+    private By userEmail = By.className("userToolsSubtitle");
 
 
     //Open 21vek.by Homepage
@@ -71,6 +77,26 @@ public class HomePage extends BasePageObject{
         click(denyCookiesConfirmBtn);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.stalenessOf(find(denyCookiesConfirmBtn)));
+    }
+
+    public void login(String email, String password){
+        log.info("Log in with the provided creds");
+        click(accountMenu);
+        click(accountBtn);
+        type(email, emailInput);
+        type(password, passwordInput);
+        click(signInBtn);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(accountMenu));
+    }
+
+    public String getUserEmail() {
+        log.info("Getting user email from the account dropdown");
+
+        click(accountMenu);
+        String currentEmail = find(userEmail).getText();
+        return currentEmail;
     }
 
 

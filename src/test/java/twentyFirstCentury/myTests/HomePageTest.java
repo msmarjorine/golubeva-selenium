@@ -55,6 +55,8 @@ public class HomePageTest extends TestUtilities {
 
         homePage.denyCookiesConfirm();
 
+        Assert.assertTrue(homePage.isCookieModalHidden(), "The cookie modal is still displayed");
+
     }
 
 
