@@ -2,6 +2,7 @@ package twentyFirstCentury.pages;
 
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,6 +30,8 @@ public class HomePage extends BasePageObject{
     private By passwordInput = By.id("login-password");
     private By signInBtn = By.cssSelector("button[data-testid='loginSubmit']");
     private By userEmail = By.className("userToolsSubtitle");
+    private By searchInput = By.id("catalogSearch");
+    private By suggestWrapper = By.id("j-suggest_items");
 
 
     //Open 21vek.by Homepage
@@ -88,17 +91,10 @@ public class HomePage extends BasePageObject{
         type(email, emailInput);
         type(password, passwordInput);
         click(signInBtn);
-
-        /*List <WebElement> accountMenuList = findAll(accountMenu);
-        if(accountMenuList.isEmpty()){
-            waitFor(ExpectedConditions.visibilityOfElementLocated(accountMenu), Duration.ofSeconds(10));
-        }*/
-
     }
 
     public String getUserEmail() {
         log.info("Getting user email from the account dropdown");
-
 
         click(accountMenu);
 
@@ -107,6 +103,17 @@ public class HomePage extends BasePageObject{
 
         String currentEmail = find(userEmail).getText();
         return currentEmail;
+    }
+
+    public void searchFor(String item){
+        click(searchInput);
+        type(item, searchInput);
+        //pressKey(searchInput, Keys.ENTER);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(suggestWrapper));
+
+
     }
 
 
