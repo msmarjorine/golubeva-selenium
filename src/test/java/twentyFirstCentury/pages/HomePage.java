@@ -51,10 +51,12 @@ public class HomePage extends BasePageObject{
 
     //Accept cookies
     public void acceptCookies(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(cookieModal));
         log.info("Clicking Accept button on the cookie modal");
         click(acceptCookiesBtn);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.stalenessOf(find(cookieModal)));
+
     }
 
     public boolean isCookieModalHidden(){
@@ -87,14 +89,22 @@ public class HomePage extends BasePageObject{
         type(password, passwordInput);
         click(signInBtn);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(accountMenu));
+        /*List <WebElement> accountMenuList = findAll(accountMenu);
+        if(accountMenuList.isEmpty()){
+            waitFor(ExpectedConditions.visibilityOfElementLocated(accountMenu), Duration.ofSeconds(10));
+        }*/
+
     }
 
     public String getUserEmail() {
         log.info("Getting user email from the account dropdown");
 
+
         click(accountMenu);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userEmail));
+
         String currentEmail = find(userEmail).getText();
         return currentEmail;
     }

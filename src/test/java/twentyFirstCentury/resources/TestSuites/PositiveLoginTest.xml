@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="PositiveLoginTestSuite" verbose="1">
+    
+
+    <test name="PositiveLoginTest-1">
+        <parameter name="validEmail" value="juliajuliazzo@yahoo.com"/>
+        <parameter name="validPassword" value="92af7991"/>
+        <classes>
+            <class name="twentyFirstCentury.myTests.PositiveLoginTest"/>
+        </classes>
+
+    </test>
+
+    <test name="PositiveLoginTest-2">
+        <parameter name="browser" value="edge"/>
+        <parameter name="validEmail" value="tony.stark.avenger@mail.ru"/>
+        <parameter name="validPassword" value="7a2a68b8"/>
+        <classes>
+            <class name="twentyFirstCentury.myTests.PositiveLoginTest"/>
+        </classes>
+
+    </test>
+
+</suite>
